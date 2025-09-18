@@ -2,13 +2,16 @@ services:
   - type: web
     name: trekk-tribe-api
     env: node
+    region: oregon
+    plan: free
     rootDir: services/api
     buildCommand: npm install && npm run build
     startCommand: npm start
+    healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: JWT_SECRET
-        generateValue: true
-      - key: MONGODB_URI
-        sync: false
+      - key: PORT
+        value: 4000
+      # Add these variables manually in Render dashboard:
+      # MONGODB_URI, JWT_SECRET, SESSION_SECRET, FRONTEND_URL
