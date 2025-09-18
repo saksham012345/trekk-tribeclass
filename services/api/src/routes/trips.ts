@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { z } from 'zod';
+import { Types } from 'mongoose';
 import { Trip } from '../models/Trip';
 import { User } from '../models/User';
 import { authenticateJwt, requireRole } from '../middleware/auth';
@@ -170,9 +171,9 @@ router.post('/:id/join', authenticateJwt, async (req, res) => {
     
     // Send notification to organizer
     await notificationService.notifyTripJoin(
-      trip._id,
+      trip._id as Types.ObjectId,
       traveler.name,
-      userId
+      new Types.ObjectId(userId)
     );
     
     res.json({ 
@@ -216,9 +217,9 @@ router.delete('/:id/leave', authenticateJwt, async (req, res) => {
     
     // Send notification to organizer
     await notificationService.notifyTripLeave(
-      trip._id,
+      trip._id as Types.ObjectId,
       traveler.name,
-      userId
+      new Types.ObjectId(userId)
     );
     
     res.json({ 
@@ -308,7 +309,7 @@ router.delete('/:id', authenticateJwt, requireRole(['organizer','admin']), async
     // Store trip data for notifications before deletion
     const tripTitle = trip.title;
     const participantIds = [...trip.participants];
-    const organizerName = trip.organizerId.name || 'Organizer';
+    const organizerName = ((trip.organizerId as any)?.name) || 'Organizer';
     
     // Delete the trip
     await Trip.findByIdAndDelete(req.params.id);
@@ -316,9 +317,9 @@ router.delete('/:id', authenticateJwt, requireRole(['organizer','admin']), async
     // Notify all participants about trip deletion
     if (participantIds.length > 0) {
       await notificationService.notifyTripDeleted(
-        trip._id,
+        trip._id as Types.ObjectId,
         tripTitle,
-        participantIds,
+        participantIds.map(id => new Types.ObjectId(id)),
         organizerName
       );
     }

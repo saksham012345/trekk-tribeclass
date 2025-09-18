@@ -163,7 +163,7 @@ async function start() {
         
         const cleanToken = token.replace('Bearer ', '');
         const decoded = jwt.verify(cleanToken, process.env.JWT_SECRET || 'your-jwt-secret') as any;
-        socket.userId = decoded.userId;
+        (socket as any).userId = decoded.userId;
         next();
       } catch (error) {
         next(new Error('Invalid authentication token'));
@@ -171,13 +171,14 @@ async function start() {
     });
     
     io.on('connection', (socket) => {
-      console.log(`📱 User ${socket.userId} connected via Socket.IO`);
+      const userId = (socket as any).userId;
+      console.log(`📱 User ${userId} connected via Socket.IO`);
       
       // Join user-specific room for notifications
-      socket.join(`user_${socket.userId}`);
+      socket.join(`user_${(socket as any).userId}`);
       
       socket.on('disconnect', () => {
-        console.log(`📱 User ${socket.userId} disconnected`);
+        console.log(`📱 User ${(socket as any).userId} disconnected`);
       });
       
       // Handle real-time notification acknowledgment

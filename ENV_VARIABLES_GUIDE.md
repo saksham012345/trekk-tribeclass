@@ -13,7 +13,7 @@
 ```
 NODE_ENV=production
 PORT=10000
-MONGODB_URI=mongodb+srv://your-username:your-password@cluster.mongodb.net/trekktribe?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://saksham:Saksham%404700@class.gvvpl45.mongodb.net/trek-tribe?retryWrites=true&w=majority&appName=class
 JWT_SECRET=01746CD09C1EE37BA7BDC2EFC9EF445E
 SESSION_SECRET=04280DAC546C0A188E96ED4C450801B8
 FRONTEND_URL=https://your-vercel-app.vercel.app
@@ -68,7 +68,7 @@ REACT_APP_API_URL=https://your-render-service.onrender.com
 
 ```
 NODE_ENV=production
-MONGODB_URI=mongodb+srv://your-username:your-password@cluster.mongodb.net/trekktribe?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://saksham:Saksham%404700@class.gvvpl45.mongodb.net/trek-tribe?retryWrites=true&w=majority&appName=class
 JWT_SECRET=01746CD09C1EE37BA7BDC2EFC9EF445E
 SESSION_SECRET=04280DAC546C0A188E96ED4C450801B8
 ```
@@ -111,7 +111,7 @@ SMTP_FROM=noreply@trekktribe.com
 
 **Example Connection String:**
 ```
-mongodb+srv://trekktribe_user:MyPassword123@cluster0.abc123.mongodb.net/trekktribe?retryWrites=true&w=majority
+mongodb+srv://saksham:Saksham%404700@class.gvvpl45.mongodb.net/trek-tribe?retryWrites=true&w=majority&appName=class
 ```
 
 ---

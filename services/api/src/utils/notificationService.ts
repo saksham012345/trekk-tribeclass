@@ -6,7 +6,7 @@ import nodemailer from 'nodemailer';
 
 // Email configuration
 const createEmailTransporter = () => {
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port: parseInt(process.env.SMTP_PORT || '587'),
     secure: false, // true for 465, false for other ports
@@ -150,7 +150,7 @@ class NotificationService {
         title: 'New Traveler Joined Your Trip',
         message: `${travelerName} has joined your trip "${trip.title}". You now have ${trip.participants.length} participants.`,
         data: {
-          tripId: trip._id,
+          tripId: trip._id as Types.ObjectId,
           actorId: travelerId,
           actorName: travelerName,
           tripTitle: trip.title
@@ -173,7 +173,7 @@ class NotificationService {
         title: 'Traveler Left Your Trip',
         message: `${travelerName} has left your trip "${trip.title}". You now have ${trip.participants.length} participants.`,
         data: {
-          tripId: trip._id,
+          tripId: trip._id as Types.ObjectId,
           actorId: travelerId,
           actorName: travelerName,
           tripTitle: trip.title
