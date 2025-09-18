@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { io, Socket } from 'socket.io-client';
 import axios from 'axios';
+import api from '../config/api';
 
 export interface Notification {
   _id: string;
@@ -116,8 +117,8 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
       const token = localStorage.getItem('token');
       if (!token) return;
 
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/notifications?page=${page}&limit=${limit}`,
+    const response = await axios.get(
+        `/notifications?page=${page}&limit=${limit}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -137,7 +138,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
       if (!token) return;
 
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/notifications/unread-count`,
+        '/notifications/unread-count',
         {
           headers: { Authorization: `Bearer ${token}` }
         }

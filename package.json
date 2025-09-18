@@ -11,10 +11,14 @@
     "dev:api": "cd services/api && npm run dev",
     "dev:web": "cd web && npm start",
     "build": "docker-compose build",
+    "build:api": "cd services/api && npm run build",
+    "build:web": "cd web && npm run build",
+    "build:all": "npm run build:web",
     "start": "docker-compose up",
     "stop": "docker-compose down",
     "clean": "docker-compose down -v",
-    "install:all": "npm install && cd services/api && npm install && cd ../../web && npm install"
+    "install:all": "npm install && cd services/api && npm install && cd ../../web && npm install",
+    "postinstall": "npm run install:all"
   },
   "dependencies": {
     "axios": "^1.11.0"

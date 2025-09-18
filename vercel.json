@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "name": "trekk-tribe-fullstack",
+  "builds": [
+    {
+      "src": "web/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "web/build"
+      }
+    },
+    {
+      "src": "services/api/src/index.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["services/api/src/**"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/services/api/src/index.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/web/build/index.html"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "services/api/src/index.ts": {
+      "maxDuration": 30
+    }
+  }
+}
